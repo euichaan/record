@@ -5,6 +5,7 @@ Consistency는 Consistency in Data와 Consistency in Reads로 구분할 수 있�
       
 잠시 MySQL 공식 문서를 살펴보자.  
 * [MySQL FOREIGN KEY Constraints](https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html)  
+  
 MySQL은 테이블 간에 관련 데이터를 상호 참조할 수 있는 외래 키와 관련 `데이터의 일관성`을 유지하는 데 도움이 되는 외래 키 제약 조건을 지원한다.  
 외래 키 관계에는 초기 열 값을 보유하는 부모 테이블과 부모 열 값을 참조하는 열 값을 가진 자식 테이블이 포함된다. 외래 키 제약 조건은 **자식 테이블**에 정의된다.  
   
