@@ -1,4 +1,5 @@
 # Record Wiki
+공부한 내용을 기록합니다.
 ## DB
 * [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)
 * [Referential Integrity](https://github.com/euichaan/record/blob/main/DB/referential-integrity.md)
