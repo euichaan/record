@@ -15,4 +15,4 @@ Use of ThreadLocalRandom is particularly appropriate when multiple tasks (for ex
 `ThreadLocalRandom.current().next(...)`의 형태로 사용한다.  
   
 `Random` 클래스는 하나의 인스턴스를 여러 스레드에서 공유하여 사용하면 성능에 문제가 발생할 수 있다. 여러 스레드가 동시에 접근하게 되면 동기화가 필요하게 되고, 이로 인해 경합 상태가 발생할 수 있다.  
-ThreadLocalRandom 클래스는 ThreadLocal 변수를 사용하여 각 스레드마다 독립적인 난수 생성기를 제공한다. 이는 스레드 간의 충돌을 방지하고, 동기화 오버헤드를 없애준다.
+`ThreadLocalRandom` 클래스는 ThreadLocal 변수를 사용하여 각 스레드마다 독립적인 난수 생성기를 제공한다. 이는 스레드 간의 충돌을 방지하고, 동기화 오버헤드를 없애준다.
