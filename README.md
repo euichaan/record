@@ -6,6 +6,7 @@
   * [Context Switch와 스레드 스케줄링](https://github.com/euichaan/record/blob/main/Java/multithreading/Context_Switch와_스레드_스케줄링.md)  
   * [스레드 생성](https://github.com/euichaan/record/blob/main/Java/multithreading/스레드%20생성.md)
   * [스레드 상속](https://github.com/euichaan/record/blob/main/Java/multithreading/스레드_상속.md)
+  * [ThreadLocalRandom](https://github.com/euichaan/record/blob/main/Java/multithreading/ThreadLocalRandom.md)
 
 ## DB
 * [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)
