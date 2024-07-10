@@ -12,12 +12,10 @@
 ## DB
 * [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)
 * [Referential Integrity](https://github.com/euichaan/record/blob/main/DB/referential-integrity.md)  
-  
+
 ## Container
 * [서비스 개발자를 위한 컨테이너 뽀개기](https://github.com/euichaan/record/blob/main/Container/컨테이너_뽀개기.md)
-
-## Docker
-* [Docker 없이 컨테이너 만들기](https://github.com/euichaan/record/blob/main/Docker/도커없이_컨테이너_만들기.md)
+* [Docker 없이 컨테이너 만들기](https://github.com/euichaan/record/blob/main/Container/도커없이_컨테이너_만들기.md)
 
 ## Kafka
 * 아파치 카프카 애플리케이션 프로그래밍 with 자바
