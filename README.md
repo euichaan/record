@@ -8,6 +8,7 @@
   * [스레드 상속](https://github.com/euichaan/record/blob/main/Java/multithreading/스레드_상속.md)
   * [ThreadLocalRandom](https://github.com/euichaan/record/blob/main/Java/multithreading/ThreadLocalRandom.md)
   * [스레드 종료와 Daemon 스레드](https://github.com/euichaan/record/blob/main/Java/multithreading/스레드_종료와_Daemon_스레드.md)
+  * [스레드 성능](https://github.com/euichaan/record/blob/main/Java/multithreading/스레드_성능.md)
 
 ## DB
 * [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)
