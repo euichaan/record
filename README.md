@@ -11,6 +11,7 @@
   * [스레드 성능](https://github.com/euichaan/record/blob/main/Java/multithreading/스레드_성능.md)
   * [Atomic Operation](https://github.com/euichaan/record/blob/main/Java/multithreading/Atomic_Operations.md)
   * [Race Condition](https://github.com/euichaan/record/blob/main/Java/multithreading/Race_Condition.md)
+  * [락킹 기법과 데드락](https://github.com/euichaan/record/blob/main/Java/multithreading/락킹_기법과_데드락.md)
 
 ## DB
 * [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)
