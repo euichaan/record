@@ -1,7 +1,6 @@
 # ACID
 
 # 트랜잭션이란
----
 하나의 작업 단위로 취급되는 쿼리의 모음. 하나의 작업 단위는 논리적으로 분할할 수 없음을 의미한다.
 
 Transcation Lifespan 은 다음과 같다.
@@ -12,7 +11,6 @@ Transcation Lifespan 은 다음과 같다.
 transaction integrity(트랜잭션 무결성)은 트랜잭션이 수행될 때, 데이터의 일관성과 신뢰성을 보장하는 원칙과 매커니즘을 의미한다. 이는 주로 ACID 원칙을 통해 설명된다.
 
 # Atomicity
----
 - 트랜잭션 내의 모든 쿼리는 성공해야 한다.
 - 하나의 쿼리라도 실패하면, 이전의 성공적으로 수행되는 모든 쿼리들은 롤백되어야 한다.
 - 만약 데이터베이스가 트랜잭션 커밋 이전에 다운되었다면, 트랜잭션 내에서 성공적으로 실행된 모든 쿼리들은 롤백되어야 한다.
@@ -21,7 +19,6 @@ transaction integrity(트랜잭션 무결성)은 트랜잭션이 수행될 때, 
 트랜잭션은 하나의 작업 단위이며, 나눌 수 없다.
 
 # Isolation
----
 [https://en.wikipedia.org/wiki/Isolation_(database_systems)](https://en.wikipedia.org/wiki/Isolation_(database_systems))
 
 이 글에 정리가 잘 되어있다.
@@ -66,7 +63,6 @@ Isolation Level
 Isolation: 각 트랜잭션 간의 독립성을 보장하는 속성. 이 속성은 여러 트랜잭션이 동시에 실행될 때, 각 트랜잭션이 서로 간섭하지 않고 독립적으로 수행되도록 보장한다. 즉, 한 트랜잭션에서 처리 중인 데이터가 다른 트랜잭션에 영향을 미치지 않도록 한다.
 
 # Consistency
----
 트랜잭션이 수행된 후 데이터베이스가 일관된 상태를 유지해야 한다.
 
 트랜잭션이 시작되기 전과 후에 DB가 반드시 정의된 모든 규칙과 제약을 만족해야 한다.
@@ -79,7 +75,6 @@ Isolation: 각 트랜잭션 간의 독립성을 보장하는 속성. 이 속성�
     - 이는 궁극적 일관성(Eventual consistency)을 통해서 해결할 수 있다.
 
 # Durability
----
 커밋된 트랜잭션으로 인한 변경은 지속성이 있는 비휘발성 저장소에 저장되어야 한다.
 
 Durability techniques
@@ -99,7 +94,6 @@ WAL에 변경 사항을 기록한 후에는, 나중에 적절한 시점에 데�
 데이터베이스는 다수의 쓰기 작업을 하나의 디스크 I/O로 묶어 처리할 수 있기 때문에, WAL을 통해 성능을 크게 향상시킬 수 있다.
 
 # 추가적으로 공부하면 좋은 내용
----
 - 2PL(Two-Phase Locking)
 - 2PC(Two-Phase Commit)
 - Lock-based Concurrency Control
