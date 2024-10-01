@@ -10,7 +10,8 @@
 * [DelegatingFilterProxy](https://github.com/euichaan/record/blob/main/Spring/DelegatingFilterProxy.md)
 
 ## Computer Architecture
-* [프로그램 밑의 세계](https://github.com/euichaan/record/blob/main/Computer_Architecture/프로그램_밑의_세계.md)
+* [프로그램 밑의 세계](https://github.com/euichaan/record/blob/main/Computer_Architecture/프로그램_밑의_세계.md)  
+* [성능](https://github.com/euichaan/record/blob/main/Computer_Architecture/성능.md)  
 
 ## Network
 * [다중화](https://github.com/euichaan/record/blob/main/Network/다중화.md)
