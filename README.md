@@ -7,7 +7,10 @@
 
 ## Spring
 * [필터 vs 인터셉터](https://github.com/euichaan/record/blob/main/Spring/필터vs인터셉터.md)
-* [DelegatingFilterProxy](https://github.com/euichaan/record/blob/main/Spring/DelegatingFilterProxy.md)
+* [DelegatingFilterProxy](https://github.com/euichaan/record/blob/main/Spring/DelegatingFilterProxy.md)  
+  
+## Test
+* [테스트 전략](https://github.com/euichaan/record/blob/main/Test/테스트_전략.md)
 
 ## Computer Architecture
 * [프로그램 밑의 세계](https://github.com/euichaan/record/blob/main/Computer_Architecture/프로그램_밑의_세계.md)  
