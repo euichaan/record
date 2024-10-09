@@ -15,7 +15,8 @@
 ## Computer Architecture
 * [프로그램 밑의 세계](https://github.com/euichaan/record/blob/main/Computer_Architecture/프로그램_밑의_세계.md)  
 * [성능](https://github.com/euichaan/record/blob/main/Computer_Architecture/성능.md)  
-* [메모리 기초](https://github.com/euichaan/record/blob/main/Computer_Architecture/메모리_기초.md)
+* [메모리 기초](https://github.com/euichaan/record/blob/main/Computer_Architecture/메모리_기초.md)  
+* [메모리 기술](https://github.com/euichaan/record/blob/main/Computer_Architecture/메모리_기술.md)
 
 ## Network
 * [다중화](https://github.com/euichaan/record/blob/main/Network/다중화.md)
