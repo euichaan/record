@@ -38,9 +38,9 @@ DNS 조회에는 일반적으로 8단계가 있지만, DNS 정보가 캐시되�
 7. 이제, example.com의 IP 주소가 네임 서버에서 확인자에게 반환된다.  
 8. 이어서, DNS 확인자가, 처음 요청한 도메인의 IP 주소로 웹 브라우저에게 응답한다.  
   
-DNS 조회의 8단계를 거쳐 example.com의 IP 주소가 반환되면, 이제 브라우저가 웹 페이지를 요청할 수 있다.  
 ![what_is_a_dns_server_dns_lookup](https://github.com/user-attachments/assets/dd14049d-aa02-4ab9-90fb-88048d30bf8e)  
-    
+
+DNS 조회의 8단계를 거쳐 example.com의 IP 주소가 반환되면, 이제 브라우저가 웹 페이지를 요청할 수 있다.      
 9. 브라우저가 IP 주소로 HTTP 요청을 보낸다.  
 10. 해당 IP의 서버가 브라우저에서 렌더링할 웹 페이지를 반환한다.  
   
