@@ -21,6 +21,7 @@
 ## Network
 * [다중화](https://github.com/euichaan/record/blob/main/Network/다중화.md)
 * [DNS](https://github.com/euichaan/record/blob/main/Network/DNS.md)
+* [DNS 레코드](https://github.com/euichaan/record/blob/main/Network/DNS_레코드.md)
 
 ## OS
 * [Atomic Operations](https://github.com/euichaan/record/blob/main/OS/Atomic_Operations.md)
