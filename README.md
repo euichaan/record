@@ -32,6 +32,7 @@
 * [스레드 성능](https://github.com/euichaan/record/blob/main/OS/스레드_성능.md)
 
 ## DB
+* [쿼리 입문](https://github.com/euichaan/record/blob/main/DB/쿼리_입문.md)  
 * [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)
 * [Referential Integrity](https://github.com/euichaan/record/blob/main/DB/referential-integrity.md)  
 
