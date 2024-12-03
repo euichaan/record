@@ -4,6 +4,7 @@
 * [ThreadLocalRandom](https://github.com/euichaan/record/blob/main/Java/ThreadLocalRandom.md)
 * [공변과 불공변](https://github.com/euichaan/record/blob/main/Java/공변과_불공변.md)
 * [Wildcard Capture and Raw type use](https://github.com/euichaan/record/blob/main/Java/Wildcard_Capture_and_Raw_type_Use.md)
+* [비검사 경고를 제거하라](https://github.com/euichaan/record/blob/main/Java/비검사_경고를_제거하라.md)
 
 ## Spring
 * [필터 vs 인터셉터](https://github.com/euichaan/record/blob/main/Spring/필터vs인터셉터.md)
