@@ -35,7 +35,8 @@
 
 ## DB
 * [쿼리 입문](https://github.com/euichaan/record/blob/main/DB/쿼리_입문.md)  
-* [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)
+* [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)  
+* [트랜잭션](https://github.com/euichaan/record/blob/main/DB/트랜잭션.md)  
 * [Referential Integrity](https://github.com/euichaan/record/blob/main/DB/referential-integrity.md)  
 
 ## Container
