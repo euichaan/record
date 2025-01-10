@@ -38,6 +38,7 @@
 * [ACID](https://github.com/euichaan/record/blob/main/DB/acid.md)  
 * [트랜잭션](https://github.com/euichaan/record/blob/main/DB/트랜잭션.md)  
 * [Referential Integrity](https://github.com/euichaan/record/blob/main/DB/referential-integrity.md)  
+* [인덱스 기초](https://github.com/euichaan/record/blob/main/DB/인덱스_기초.md)
 
 ## Container
 * [서비스 개발자를 위한 컨테이너 뽀개기](https://github.com/euichaan/record/blob/main/Container/컨테이너_뽀개기.md)
