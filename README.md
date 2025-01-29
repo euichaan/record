@@ -41,6 +41,7 @@
 * [Referential Integrity](https://github.com/euichaan/record/blob/main/DB/referential-integrity.md)  
 * [인덱스 기초](https://github.com/euichaan/record/blob/main/DB/인덱스_기초.md)  
 * [커버링 인덱스](https://github.com/euichaan/record/blob/main/DB/커버링_인덱스.md)
+* [Lock](https://github.com/euichaan/record/blob/main/DB/Lock.md)  
 
 ## Container
 * [서비스 개발자를 위한 컨테이너 뽀개기](https://github.com/euichaan/record/blob/main/Container/컨테이너_뽀개기.md)
