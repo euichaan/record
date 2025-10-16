@@ -1,5 +1,4 @@
-# Record Wiki
-공부한 내용을 기록합니다.
+# record
 ## Java
 * [ThreadLocalRandom](https://github.com/euichaan/record/blob/main/Java/ThreadLocalRandom.md)
 * [공변과 불공변](https://github.com/euichaan/record/blob/main/Java/공변과_불공변.md)
