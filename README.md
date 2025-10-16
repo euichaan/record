@@ -15,10 +15,10 @@
 * [언제 테스트를 작성해야 할까?](https://github.com/euichaan/record/blob/main/Test/언제_테스트를_작성해야_할까.md)
 
 ## Computer Architecture
-* [프로그램 밑의 세계](https://github.com/euichaan/record/blob/main/Computer_Architecture/프로그램_밑의_세계.md)  
-* [성능](https://github.com/euichaan/record/blob/main/Computer_Architecture/성능.md)  
-* [메모리 기초](https://github.com/euichaan/record/blob/main/Computer_Architecture/메모리_기초.md)  
-* [메모리 기술](https://github.com/euichaan/record/blob/main/Computer_Architecture/메모리_기술.md)
+* [프로그램 밑의 세계](https://github.com/euichaan/record/blob/main/ComputerArchitecture/프로그램_밑의_세계.md)  
+* [성능](https://github.com/euichaan/record/blob/main/ComputerArchitecture/성능.md)  
+* [메모리 기초](https://github.com/euichaan/record/blob/main/ComputerArchitecture/메모리_기초.md)  
+* [메모리 기술](https://github.com/euichaan/record/blob/main/ComputerArchitecture/메모리_기술.md)
 
 ## Network
 * [다중화](https://github.com/euichaan/record/blob/main/Network/다중화.md)
