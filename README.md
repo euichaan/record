@@ -5,7 +5,8 @@
 * [Wildcard Capture and Raw type use](https://github.com/euichaan/record/blob/main/Java/Wildcard_Capture_and_Raw_type_Use.md)
 * [비검사 경고를 제거하라](https://github.com/euichaan/record/blob/main/Java/비검사_경고를_제거하라.md)
 * [Javadoc 작성법](https://github.com/euichaan/record/blob/main/Java/Javadoc_작성법.md)  
-* [제네릭 배열을 생성하지 못하는 이유](https://github.com/euichaan/record/blob/main/Java/제네릭_배열을_생성하지_못하는_이유.md)
+* [제네릭 배열을 생성하지 못하는 이유](https://github.com/euichaan/record/blob/main/Java/제네릭_배열을_생성하지_못하는_이유.md)  
+* [Hash](https://github.com/euichaan/record/blob/main/Java/Hash.md)  
 
 ## Spring
 * [필터 vs 인터셉터](https://github.com/euichaan/record/blob/main/Spring/필터vs인터셉터.md)
