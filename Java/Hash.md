@@ -44,4 +44,37 @@ Object 명세의 규약
 - equals(Object)가 두 객체를 같다고 판단했다면, 두 객체의 hashCode는 똑같은 값을 반환해야 한다.  
 - equals(Object)가 두 객체를 다르다고 판단했더라도, 두 객체의 hashCode가 서로 다른 값을 반환할 필요는 없다. 단, 다른 객체에 대해서는 다른 값을 반환해야 해시테이블의 성능이 좋아진다.  
 ```
-hashCode 재정의를 잘못했을 때 크게 문제가 되는 조항은 두 번째다.
+hashCode 재정의를 잘못했을 때 크게 문제가 되는 조항은 두 번째다. 즉, 논리적으로 같은 객체는 같은 해시코드를 반환해야 한다.  
+```java
+Map<PhoneNumber, String> m = new HashMap<>();
+m.put(new PhoneNumber(707, 867, 5309), "제니");
+```
+이 코드 다음에 `m.get(new PhoneNumber(707, 867, 5309));`를 실행하면 제니가 나와야 할 것 같지만, 실제로는 null을 반환한다. PhoneNumber 클래스는 hashCode를 재정의하지 않았기 때문에 논리적 동치인 두 객체가 서로 다른 해시코드를 반환하여 두 번째 규약을 지키지 못한다. 그 결과 get 메서드는 엉뚱한 해시 버킷에 가서 객체를 찾으려 한 것이다.  
+설사 두 인스턴스를 같은 버킷에 담았더라도 get 메서드는 여전히 null을 반환하는데, HashMap은 해시코드가 다른 엔트리끼리는 동치성 비교를 시도조차 하지 않도록 최적화되어 있기 때문이다.  
+  
+이 문제는 PhoneNumber에 적절한 hashCode 메서드만 작성해주면 해결된다. 올바른 hashCode 메서드는 어떤 모습이어야 할까?  
+  
+```java
+// 최악의 (하지만 적법한) hashCode 구현 - 사용 금지!
+@Override
+public int hashCode() { return 42; }
+```
+이 경우 동등한 모든 객체가 해시테이블의 버킷 하나에 담겨 마치 연결 리스트(linked list)처럼 동작한다.  
+그 결과 평균 수행 시간이 O(1)인 해시테이블이 O(n)으로 느려져서, 객체가 많아지면 도저히 쓸 수 없게 된다.  
+  
+좋은 해시 함수라면 서로 다른 인스턴스에 다른 해시코드를 반환한다.  
+**이상적인 해시 함수는 주어진 (서로 다른) 인스턴스들을 32비트 정수 범위에 균일하게 분배해야 한다.**  
+  
+Objects 클래스는 임의의 개수만큼 객체를 받아 해시코드를 계산해주는 정적 메서드인 hash를 제공한다.  
+```java
+@Override
+public int hashCode() { 
+    return Objects.hash(lineNum, prefix, areaCode);
+}
+```
+하지만 아쉽게도 속도는 더 느리다. 입력 인수를 받기 위한 배열이 만들어지고, 입력 중 기본 타입이 있다면 박싱과 언박싱도 거쳐야 하기 떄문이다. 그러니 hash 메서드는 성능에 민감하지 않은 상황에서만 사용하자.  
+  
+**성능을 높인답시고 해시코드를 계산할 때 핵심 필드를 생략해서는 안 된다.**  
+  
+다음은 좋은 hashCode를 작성하는 간단한 요령이다.  
+[Guide to hashCode() in Java](https://www.baeldung.com/java-hashcode)  
