@@ -9,3 +9,71 @@
   
 부모 측에 설정되는 mappedBy 속성은 양방향 연관관계의 특성을 부여한다. 다시 말해 양방향 @OneToMany 연관관계에서 부모 측 @OneToMany에 mappedBy가 지정되고 mappedBy에 의해 참조되는 자식 측에 @ManyToOne이 지정된다. mappedBy를 통해 양방향 @OneToMany 연관관계가 @ManyToOne 자식 측 매핑을 미러링한다는 신호를 보내는 것이다. 이 경우 Author 엔티티에 다음과 같이 추가한다.  
 `@OneToMany(cascade = CascadeType.ALL, mappedBy = "author")`  
+  
+## 부모 측에 orphanRemoval 지정
+부모 측 orphanRemoval 지정은 더 이상 참조되지 않은 자식들의 삭제를 보장한다. 즉, orphanRemoval은 소유 객체로부터 참조 없이 존재할 수 없는 의존 객체를 정리하기에 유용하다.  
+`@OneToMany(cascade = CascadeType.ALL, mappedBy = "author", orphanRemoval = true)`  
+  
+## 연관관계의 양측을 동기화 상태로 유지
+부모 측 도우미(헬퍼) 메서드를 통해 어렵지 않게 연관관계의 양쪽 상태를 동기화 할 수 있다.  
+연관관계의 양쪽을 동기화 상태로 유지하려 노력하지 않으면 엔티티 상태 전환으로 인해 예기치 않은 동작이 발생될 수 있다. 이를 위해 Author 엔티티에 다음과 같은 도우미 메서드를 추가한다.  
+```java
+public void addBook(Book book) {
+        this.books.add(book);
+        book.setAuthor(this);
+    }
+
+    public void removeBook(Book book) {
+        book.setAuthor(null);
+        this.books.remove(book);
+    }
+
+    public void removeBooks() {
+        Iterator<Book> iterator = this.books.iterator();
+
+        while (iterator.hasNext()) {
+            Book book = iterator.next();
+            book.setAuthor(null);
+            iterator.remove();
+        }
+    }
+```
+
+## equals()와 hashCode() 오버라이딩
+자동 생성된 데이터베이스 식별자의 경우 equals() 메서드는 동등성 검사를 수행하기 전에 식별자의 null 검사를 수행해야 하며, hashCode() 메서드는 상수 값을 반환해야 한다는 것이다.  
+자식 측에서 재정의돼어야 하는데.. 라는 말이 나오는데, 클로드의 답변  
+```
+부분적으로 맞지만, 정확하게는 "자식 측에서 재정의해야 한다"보다는 "양쪽 모두 재정의하되, 특히 자식 측이 중요하다"가 더 정확해요.
+
+private Set<Book> books = new HashSet<>();  // ⭐ Set 사용 시!
+Set<Book>에 Book을 넣을 때 equals()/hashCode() 사용
+```
+[JPA Hibernate 프록시 제대로 알고 쓰기](https://tecoble.techcourse.co.kr/post/2022-10-17-jpa-hibernate-proxy/)  
+JPA 구현체인 하이버네이트는 프록시 객체를 통해 지연 로딩을 구현하고 있다.  
+지연 로딩을 구현하기 위해 프록시를 사용한다. 프록시는 실제 객체의 상속본이다. 실제 객체를 상속한 타입을 가지고 있다. 그리고 프록시 객체는 실제 객체에 대한 참조를 보관하여, 프록시 객체의 메서드를 호출했을 때 실제 객체의 메서드를 호출한다. 프록시 객체가 실제 객체의 상속본은 JPA 엔티티 생성의 중요한 규칙을 만들어내기도 했다.  
+- 기본 생성자는 최소 protected 접근 제한자를 가져야 한다.  
+- 엔티티 클래스는 final로 정의할 수 없다.  
+  
+기본 생성자가 private이면 프록시 생성 시 super를 호출할 수 없을 것이고, 엔티티를 final로 선언한다면 상속이 불가능하다.  
+  
+프록시 객체 초기화: 실제 객체의 메서드를 호출할 필요가 있을 때 데이터베이스를 조회해서 참조 값을 채우게 되는데, 이를 프록시 객체를 초기화한다고 한다. 단, 프록시가 실제 객체를 참조하게 되는 것이지 프록시가 실제 객체로 바뀌지는 않는다.  
+  
+준영속 상태의 프록시를 초기화 한다거나 OSIV 옵션이 꺼져 있는 상황에 트랜잭션 바깥에서 프록시를 초기화 하려 하는 경우 LazyInitializationException을 만날 수 있다.  
+  
+프록시의 equals를 재정의할 때는 instanceof와 getId를 사용할 것  
+equals를 호출하는 순간 프롟기가 초기화되어 Team.class와 Team$HibernateProxy.class 를 비교하게 되어 false가 반환된다.  
+프록시의 필드값은 모두 null이기 때문에 Objects.equals(id, team.id)는 id값과 null을 비교하게 되어 false가 반환되게 된다. 하지만 getId는 실제 id를 반환한다.  
+  
+프록시가 생성되면 영속성 컨텍스트는 프록시를 반환한다. 한 트랜잭션 내에서 최초 생성이 프록시로 된 엔티티는 이후 초기화 여부에 상관 없이 영속성 컨텍스트가 무조건 같은 프록시 객체를 반환해주게 된다.  
+반대로 영속성 컨텍스트에 최초로 저장될 때 실제 엔티티로 저장될 경우, 이후로는 프록시가 아닌 실제 엔티티가 반환된다.  
+  
+영속성 컨텍스트의 특징인 `동일성 보장`을 만족하기 위함.  
+## 연관관계 양측에서 지연 로딩 사용
+## toString() 오버라이딩 방법에 주의
+toString()을 재정의해야 하는 경우 엔티티가 데이터베이스로부터 로드될 때 가져오는 기본 속성만 포함해야 한다. 지연 속성이나 연관관계를 포함하게 되면 해당 데이터를 가져오는 별도 SQL문이 실행되거나 `LazyInitializationException`이 발생된다.  
+  
+영속성 컨텍스트가 닫힌 후에 지연 로딩을 시도할 때 발생하는 예외.  
+    
+---  
+엔티티 삭제 처리. 특히 자식 엔티티 처리에 주의해야 한다. CascadeType.REMOVE와 orphanRemoval=true가 처리되는 동안 많은 SQL문이 생성될 수 있다. 이 경우 벌크(bulk) 처리를 사용하는 것이 일반적으로 상당히 많은 엔티티를 삭제하는 가장 좋은 방법이다.  
+# 항목 2: 단방향 @OneToMany 연관관계를 피해야 하는 이유
