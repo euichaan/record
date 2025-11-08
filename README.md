@@ -12,6 +12,9 @@
 * [필터 vs 인터셉터](https://github.com/euichaan/record/blob/main/Spring/필터vs인터셉터.md)
 * [DelegatingFilterProxy](https://github.com/euichaan/record/blob/main/Spring/DelegatingFilterProxy.md)  
   
+## JPA
+* [스프링 부트 JPA 모범 사례](https://github.com/euichaan/record/blob/main/JPA/스프링_부트_JPA_모범_사례.md)  
+  
 ## Test
 * [언제 테스트를 작성해야 할까?](https://github.com/euichaan/record/blob/main/Test/언제_테스트를_작성해야_할까.md)
 
