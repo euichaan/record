@@ -155,3 +155,26 @@ Hibernate:
         (?, ?, ?, default)
 ```
 # 항목 3: 단방향 @ManyToOne의 효율성
+플러시는 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영한다.  
+  
+플러시를 실행하면 구체적으로 다음과 같은 일이 일어난다.  
+1. 변경 감지가 동작해서 영속성 컨텍스트에 있는 모든 엔티티를 스냅샷과 비교해서 수정된 엔티티를 찾는다. 수정된 엔티티는 수정 쿼리를 만들어 쓰기 지연 SQL 저장소에 등록한다.  
+2. 쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 전송한다.  
+  
+영속성 컨텍스트를 플러시하는 방법  
+- em.flush() 직접 호출  
+- 트랜잭션 커밋 시 플러시가 자동 호출  
+- JPQL 쿼리 실행 시 플러시가 자동 호출  
+  
+update 쿼리가 나가지 않은 이유는 @Transactional 테스트는 기본적으로 롤백을 하기 때문이다.  
+`TransactionalTestExecutionListener`를 보면 다음과 같이 나와있다.  
+```text
+* <h3>Declarative Rollback and Commit Behavior</h3>
+ * <p>By default, test transactions will be automatically <em>rolled back</em>
+ * after completion of the test; however, transactional commit and rollback
+ * behavior can be configured declaratively via the {@link Commit @Commit}
+ * and {@link Rollback @Rollback} annotations at the class level and at the
+ * method level.
+```
+단방향 @OneToMany 연관관계는 매우 효율적으고 양방향 @OneToMany 연관관계가 필요하지 않을 때 사용할 수 있다. 다시 말하자면 단방향 @OneToMany 연관관계 사용은 피하자.  
+  
