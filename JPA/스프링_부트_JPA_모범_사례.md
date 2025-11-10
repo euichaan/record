@@ -178,3 +178,43 @@ update 쿼리가 나가지 않은 이유는 @Transactional 테스트는 기본�
 ```
 단방향 @OneToMany 연관관계는 매우 효율적으고 양방향 @OneToMany 연관관계가 필요하지 않을 때 사용할 수 있다. 다시 말하자면 단방향 @OneToMany 연관관계 사용은 피하자.  
   
+# 항목 6: CascadeType.REMOVE 및 orphanRemoval=true를 사용해 하위 엔티티 제거를 피해야 하는 이유와 시기
+CascadeType.REMOVE와 orphanRemoval=true의 차이점을 빠르게 살펴보자.  
+  
+CascadeType.REMOVE  
+- 부모 엔티티가 삭제되면 자식 엔티티도 삭제된다. (즉, 부모가 자식의 삭제 생명 주기를 관리한다.)  
+- **부모 엔티티가 자식 엔티티와의 관계를 제거해도 자식 엔티티는 삭제하지 않고 그대로 남아있다.**  
+  
+orphanRemoval=true  
+- 부모 엔티티가 삭제되면 자식 엔티티도 삭제된다.  
+- **부모 엔티티가 자식 엔티티의 관계를 제거하면 자식은 고아로 취급되어 그대로 사라진다.**  
+```
+@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Book> books = new ArrayList<>();
+
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "author_id")
+private Author author;
+```
+Author 엔티티 삭제는 연관된 Book 엔티티로 자동 전이된다. 이는 CascadeType.REMOVE 또는 orphanRemoval=true가 하나라도 설정돼 있으면 처리가 되는데, 두 설정이 중복된다는 것이다.  
+```java
+public void removeBook(Book book) {
+    book.setAuthor(null);
+    this.books.remove(book);
+}
+```
+  
+orphanRemoval=false가 지정되어 있으면 UPDATE문이 호출된다. orphanRemoval=true는 엔티티의 참조 없이는 존재하지 않아야 할 엔티티를 정리하는 데 유용하다.  
+저자를 삭제하면 연관된 모든 도서가 삭제되는데, 이는 CascadeType.REMOVE를 포함한 CascadeType.ALL의 효과다. 그러나 연관된 도서를 삭제하기 전에 SELECT를 통해 영속성 컨텍스트에 먼저 로드되는데, 이미 영속성 컨텍스트에 존재한다면 따로 로드되진 않는다. managed 상태여야만 orphanRemoval=true와 cascadeType.REMOVE가 동작한다.  
+  
+하지만 두 가지 옵션 모두 많은 DELETE문을 유발하고 성능 저하는 커진다.  
+  
+애플리케이션이 산발적인 삭제를 호출하는 경우 CascadeType.REMOVE나 orphanRemoval=true를 함께 또는 따로 사용할 수 있다. 이 경우 낙관적 락을 사용할 수 있고, 엔티티 상태 전환을 관리하는 하이버네이트가 필요하다. 그러나 좀 더 효율적인 삭제 방법을 찾는다면? 벌크 처리를 통해 저자와 연관 도서를 삭제한다.  
+  
+- 자동화된 낙관적 잠금 메커니즘을 무시한다.(@Version을 더이상 사용할 수 없음)  
+- 영속성 컨텍스트는 벌크 작업에 의해 수행된 수정 사항을 반영하고자 동기화되지 않기 때문에 유효하지 않은 콘텍스트를 가질 수 있다.  
+- CascadeType.REMOVE 또는 orphanRemoval을 활용할 수 없다.  
+  
+두 번째 같은 경우 flushAutomatically=true 또는 clearAutomatically=true를 통해 영속성 컨텍스트 동기화 문제를 관리할 수 있다. 그러나 이 2가지 설정이 항상 필요하다고 결론 내지 말아야 한다. 사용 방법은 달성해야 할 목적에 따라 다르기 때문이다.  
+  
+[JPA에서 대량의 데이터를 삭제할때 주의해야할 점](https://jojoldu.tistory.com/235)  
