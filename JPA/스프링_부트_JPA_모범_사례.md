@@ -218,3 +218,40 @@ orphanRemoval=false가 지정되어 있으면 UPDATE문이 호출된다. orphanR
 두 번째 같은 경우 flushAutomatically=true 또는 clearAutomatically=true를 통해 영속성 컨텍스트 동기화 문제를 관리할 수 있다. 그러나 이 2가지 설정이 항상 필요하다고 결론 내지 말아야 한다. 사용 방법은 달성해야 할 목적에 따라 다르기 때문이다.  
   
 [JPA에서 대량의 데이터를 삭제할때 주의해야할 점](https://jojoldu.tistory.com/235)  
+```
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.name 
+    from
+        customer c1_0 
+    where
+        c1_0.id in (?, ?, ?)
+Hibernate: 
+    delete 
+    from
+        customer 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        customer 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        customer 
+    where
+        id=?
+```
+deleteByIdIn의 동작 과정  
+- select where in.. 으로 조회  
+- 1건씩 삭제  
+- CascadeType.DELETE 으로 하위 엔티티와 관계가 맺어진 경우 하위 엔티티들도 1건씩 삭제가 진행된다.  
+  
+범위 조건의 삭제 쿼리를 생성하면 된다. 그러면 삭제 쿼리 한번으로 해결이 가능하다.  
+그러나 이 방법은 '영속성 컨텍스트는 벌크 작업에 의해 수행된 수정 사항을 반영하고자 동기화되지 않기 때문에 유효하지 않은 콘텍스트를 가질 수 있다'라는 문제가 있다.  
+  
+일반 delete의 경우 select로 엔티티를 조회해서 영속성 컨텍스트에 로드하지만 범위 조건의 Bulk 연산은 영속성 컨텍스트를 무시한다. clearAutomatically = true나 flushAutomatically=true를 사용해서 영속성 컨텍스트 동기화 문제를 관리할 수 있다.
