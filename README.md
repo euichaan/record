@@ -7,6 +7,7 @@
 * [Javadoc 작성법](https://github.com/euichaan/record/blob/main/Java/Javadoc_작성법.md)  
 * [제네릭 배열을 생성하지 못하는 이유](https://github.com/euichaan/record/blob/main/Java/제네릭_배열을_생성하지_못하는_이유.md)  
 * [Hash](https://github.com/euichaan/record/blob/main/Java/Hash.md)  
+* [예외](https://github.com/euichaan/record/blob/main/Java/예외.md)  
 
 ## Spring
 * [필터 vs 인터셉터](https://github.com/euichaan/record/blob/main/Spring/필터vs인터셉터.md)
