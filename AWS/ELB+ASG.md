@@ -25,5 +25,27 @@ Active HA
 
 High Availability: Run instances for the same application across multi AZ(동일한 애플리케이션의 인스턴스를 여러 AZ에 걸쳐 실행하는 것)  
   
-
+## Why use load balancing
+- 부하를 다수의 다운스트림 인스턴스로 분산하기 위해서  
+- 애플리케이션에 단일 액세스 지점(DNS)을 노출  
+- 다운스트림 인스턴스의 장애를 원활히 처리할 수 있음  
+- 주기적으로 인스턴스의 health check  
+- SSL termination  
+- Enforce stickiness with cookies  
+- HA across zones  
+- Seperate public traffic from private traffic  
+  
+Elastic Load Balancer는 관리형 로드 밸런서이기도 하다.  
+- AWS가 관리하며, 어떤 경우에도 작동할 것을 보장한다.  
+- AWS가 업그레이드와 유지 관리 및 고가용성을 책임진다.  
+- AWS provides only a few configuration knobs  
+  
+헬스 체크는 port와 route에서 이뤄진다.  
+  
+Application Load Balancer: HTTP, HTTPS, WebSocket  
+Network Load Balancer: TCP, TLS(secure TCP), UDP  
+Gateway Load Balancer: Operates at layer 3 (Network layer) - IP Protocol  
+  
+users <-> Load Balancer <-> EC2  
+에서의 보안 그룹은 EC2 가 LB를 통과한 트래픽만 받을 수 있도록 포트 80에서 HTTP 트래픽을 허용하며 소스는 IP 범위가 아니라 보안 그룹이 된다. **EC2 인스턴스의 보안 그룹을 로드 밸런서의 보안 그룹으로 연결하는 것이다.**  
   
