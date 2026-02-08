@@ -49,3 +49,30 @@ Gateway Load Balancer: Operates at layer 3 (Network layer) - IP Protocol
 users <-> Load Balancer <-> EC2  
 에서의 보안 그룹은 EC2 가 LB를 통과한 트래픽만 받을 수 있도록 포트 80에서 HTTP 트래픽을 허용하며 소스는 IP 범위가 아니라 보안 그룹이 된다. **EC2 인스턴스의 보안 그룹을 로드 밸런서의 보안 그룹으로 연결하는 것이다.**  
   
+## Application Load Balancing
+Layer 7, HTTP 전용 로드 밸런서  
+리다이렉트 지원 (from HTTP to HTTPS for example)  
+HTTP/2, WebSocket 지원  
+  
+포트 매핑 기능이 있어 ECS 인스턴스의 동적 포트로의 리다이렉션을 가능하게 해준다.  
+  
+대상 그룹  
+- EC2 인스턴스  
+- ECS 태스크  
+- 람다 함수  
+- IP 주소(must be private)  
+  
+ALB는 여러 대상 그룹으로 라우팅할 수 있으며 상태 확인은 대상 그룹 레벨에서 이루어진다.  
+```
+타겟 그룹: ALB가 트래픽을 보낼 대상들의 묶음.
+
+클라이언트 -> ALB(리스너) -> 타겟 그룹 -> EC2 인스턴스들
+```
+  
+로드 밸런서를 사용하는 경우 고정된 hostname이 부여된다. (XXX.region.elb.amazonaws.com)  
+application server는 클라이언트의 IP를 직접적으로 볼 수 없다.  
+- 클라이언트의 실제 IP는 X-Forwarded-For라고 불리는 헤더에 삽입된다.  
+- X-Forwarded-Proto에 의해 사용하는 프로토콜도 얻게 된다.  
+  
+백엔드 인스턴스의 입장에서 보면 요청의 출발지 IP가 클라이언트가 아니라 ALB의 private IP로 찍힌다.  
+  
