@@ -55,7 +55,7 @@
 * [Multi-stage builds](https://github.com/euichaan/record/blob/main/Container/Multi-stage_builds.md)  
   
 ## Infrastructure
-
+* [선착순 예매 시스템 아키텍처](https://github.com/pine14/record/blob/main/Infrastructure/선착순_예매_시스템_아키텍처.md)
   
 ## Tool
 * [Intellij 디버깅](https://github.com/euichaan/record/blob/main/Tool/IntelliJ_%EB%94%94%EB%B2%84%EA%B9%85.md)
