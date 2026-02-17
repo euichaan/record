@@ -84,3 +84,14 @@ application server는 클라이언트의 IP를 직접적으로 볼 수 없다.
   
 EC2 인스턴스의 보안 그룹에서 인바운드 규칙을 로드밸런서의 보안 그룹으로 연결하면 EC2 public ip로의 트래픽을 차단할 수 있다. 클라이언트는 로드 밸런서를 통해서만 요청을 할 수 있다.  
   
+## Network Load balancing
+Network Load balancer (Layer 4)는 TCP와 UDP 트래픽을 처리할 수 있다.  
+초당 수백만 건의 요청을 처리할 수 있다.  
+지연 시간이 매우 짧다. (Ultra-low latency)  
+  
+가용 영역 당 하나의 고정 IP만 가지고 있으며 각 가용 영역에 탄력적 IP를 할당할 수 있다.  
+  
+NLB를 ALB 앞에 위치시키는 경우도 있다. (NLB - ALB)  
+네트워크 로드 밸런서를 통해 고정 IP 주소를 얻을 수 있기 때문이다. 애플리케이션 로드 밸런서를 통해 HTTP 유형의 트래픽을 처리하는 모든 규칙을 사용할 수 있다.  
+  
+헬스 체크로 TCP, HTTP, HTTPS 프로토콜을 지원한다.  
