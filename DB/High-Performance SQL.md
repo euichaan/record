@@ -231,7 +231,70 @@ not in을 쓸 때는 주의해야 하는데, not in은 and로 풀린다.
   
 **not in을 사용하면서 null값이 포함되는 것은 상당히 위험하다.**  
   
-
+## Column Expression
+A subquery can be used in the select clause as a column expression  
+the subquery must return 'a single scalar value'  
   
+서브쿼리가 단일 값을 생성해야 한다.  
+하나의 값을 반환하지 못하면 오류가 발생한다.  
+  
+각 행마다 스칼라 값을 계산하는 방식. 본질적으로 상관 서브쿼리.  
+```sql
+select id, first_name, last_name,
+(
+    select avg(sg.grade)
+    from student_grade sg
+    where sg.student_id = student.id
+) as avg_grade
+from student
+order by id
+limit 100
+```
+학생 100명 각각에 대해 서브쿼리가 한 번씩 실행.  
+  
+from 절의 인라인 뷰(파생 테이블)로 바꾸면 집계를 한 번만 수행한다.  
+```sql
+select s.id, s.first_name, s.last_name, sg.avg_grade
+from student s
+join (
+    select student_id, avg(grade) as avg_grade
+    from student_grade
+    group by student_id
+    order by student_id
+    limit 100
+)
+as sg on s.id = sg.student_id
+order by s.id
+```
+  
+## ANY and ALL
+왼쪽 값을 서브쿼리 결과의 각 행과 비교해서, 하나라도 조건을 만족하면 true.  
+```sql
+-- admission_score가 자기 성적 중 하나라도 보다 크면 포함
+select id, fisrt_name, last_name, admission_score
+from student
+where admission_score > any (
+    select grade from student_grade
+    where student_grade.student_id = student.id
+)
+```
+ANY의 경우 ANY는 OR로 풀리길 때문에 서브쿼리에 NULL이 섞여 있어도 NULL이 아닌 값에서 조건이 성립하면 true를 반환한다.  
+예를 들어 score > ANY (8, NULL)은 score > 8이 true면 전체가 true다.  
+    
+```sql
+-- admission_score가 자기 성적 전부보다 낮아야 포함
+select id, first_name, last_name, admission_score
+from student
+where admission_score < all (
+    select grade from student_grade
+    where student_grade.student_id = student.id
+)
+```
+ALL의 경우 AND로 풀리기 때문에 서브쿼리에 NULL이 하나라도 있으면 SCORE > ALL (8, NULL)은 score > NULL이 NULL로 평가되고  
+AND를 하면 빈 결과를 반환하기 때문에 주의해야 한다.  
+  
+**NOT IN과 ALL 사용시 서브쿼리에 NULL이 포함되지 않도록 주의해야 한다.**  
+방어하는 방법은 `where column is not null`을 넣거나 `not in` 대신 `not exists`를 쓰는 것이다.  
+    
 # TODO (study)
 semi join
